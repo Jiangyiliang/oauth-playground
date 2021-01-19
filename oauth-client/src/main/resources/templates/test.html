@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客戶端接入</title>
+</head>
+<script  type="text/javascript" src="jquery-1.11.2.min.js"></script>
+<body>
+1、获取code
+<button id="getCode" value="loginB">获取code</button>  <input type="text" name="code" id="code"/>
+<br/>
+2.1、获取token
+<button id="getToken" value="loginB1">获取token</button>
+token：<input type="text" name="token" id="token"/>
+<br/>
+2.2、refresh token
+<button id="getRefreshToken" value="loginB2">刷新token</button>
+refreshToken：<input type="text" name="token" id="refreshToken"/>
+<br/>
+3、资源列表
+<a  id="resTest" href="javascript:;">http://47.102.46.189:83/res/getUserInfo?name=oauth2</a>
+/
+<br/>
+请求头：
+<div id="request" style="margin-left:150px;height: 250px;width:75%;border:solid 1px #000 "></div>
+<br/>
+响应头：
+<div id="response" style="margin-left:150px;height: 150px;width:75%;border :solid 1px #000 "></div>
+响应值：
+<div id="responseData" style="margin-left:150px;height: 80px;width:75%;border :solid 1px #000 "></div>
+</body>
+<script>
+
+    $(function(){
+        var code = getQueryVariable("code");
+        if(code){
+            $("#code").val(code);
+        }
+    });
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        query = decodeURIComponent(query);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+
+    $("#getCode").bind("click",function(){
+        var firsturl = "http://47.102.46.189/oauth/authorize?response_type=code&client_id=client&redirect_uri=http://47.102.46.189:81/index&scope=http://47.102.46.189:83/res";
+        window.location.href = firsturl;
+    });
+
+    $("#getToken").bind("click",function(){
+        $.get("/front/getToken?code="+$("#code").val(),function(data,status,xhr){
+            var responseStr = JSON.stringify(xhr.getAllResponseHeaders());
+            responseStr = responseStr.replace(/\\r\\n/g,"<br/>");
+            responseStr = responseStr.replace(/"/g,"");
+            $("#response").html(responseStr);
+            var jsonObj = JSON.parse(data);
+            $("#responseData").text(jsonObj.resultData);
+            var tokeJson = JSON.parse(jsonObj.resultData);
+            $("#token").val(tokeJson.accessToken);
+            $("#refreshToken").val(tokeJson.refreshToken);
+
+            var requst = "";
+            $.each(jsonObj,function(key,value){
+                if(key!="resultData")
+                    requst += key+" ："+value+"<br/>";
+            });
+            $("#request").html(requst);//
+        });
+    });
+
+    $("#getRefreshToken").bind("click",function(){
+        $.get("/front//refreshToken?refreshToken="+$("#refreshToken").val(),function(data,status,xhr){
+            var responseStr = JSON.stringify(xhr.getAllResponseHeaders());
+            responseStr = responseStr.replace(/\\r\\n/g,"<br/>");
+            responseStr = responseStr.replace(/"/g,"");
+            $("#response").html(responseStr);
+            var jsonObj = JSON.parse(data);
+            $("#responseData").text(jsonObj.resultData);
+            var tokeJson = JSON.parse(jsonObj.resultData);
+            $("#token").val(tokeJson.accessToken);
+            $("#refreshToken").val(tokeJson.refreshToken);
+            var jsonObj = JSON.parse(data);
+            $("#responseData").text(jsonObj.resultData);
+            var requst = "";
+            $.each(jsonObj,function(key,value){
+                if(key!="resultData")
+                    requst += key+" ："+value+"<br/>";
+            });
+            $("#request").html(requst);//
+        });
+    });
+
+
+    $("#resTest").bind("click",function(){
+        var url = "http://47.102.46.189:83/res/getUserInfo?name=oauth&access_token="+$("#token").val();
+        window.open(url);
+    });
+
+    $("#postResTest").bind("click",function(){
+        var url = "http://localhost:8082/res2/hi?name=oauth&access_token="+$("#token").val();
+        window.open(url);
+    });
+</script>
+</html>

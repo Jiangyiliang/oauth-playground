@@ -1,0 +1,12 @@
+html,body {
+  min-width: 1200px;
+}
+
+.cas-panel .el-cascader-menu__wrap {
+  overflow: scroll;
+  height: 100%;
+}
+.info-area .el-card__header {
+  padding: 8px 10px;
+  font-weight: 500;
+}

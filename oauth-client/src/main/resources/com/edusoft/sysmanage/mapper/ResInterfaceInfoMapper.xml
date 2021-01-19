@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edusoft.sysmanage.mapper.ResInterfaceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.edusoft.sysmanage.model.ResInterfaceInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="interface_code" jdbcType="VARCHAR" property="interfaceCode" />
+    <result column="service_id" jdbcType="INTEGER" property="serviceId" />
+    <result column="interface_name" jdbcType="VARCHAR" property="interfaceName" />
+    <result column="interface_url" jdbcType="VARCHAR" property="interfaceUrl" />
+    <result column="interface_desc" jdbcType="VARCHAR" property="interfaceDesc" />
+    <result column="http_port" jdbcType="VARCHAR" property="httpPort" />
+    <result column="http_method" jdbcType="VARCHAR" property="httpMethod" />
+    <result column="headers" jdbcType="VARCHAR" property="headers" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="pxh" jdbcType="INTEGER" property="pxh" />
+    <result column="add_user" jdbcType="VARCHAR" property="addUser" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="VARCHAR" property="deleted" />
+    <result column="EXT1" jdbcType="VARCHAR" property="ext1" />
+    <result column="EXT2" jdbcType="VARCHAR" property="ext2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, interface_code, service_id, interface_name, interface_url, interface_desc, http_port, 
+    http_method, headers, params, status, pxh, add_user, add_time, update_user, update_time, 
+    deleted, EXT1, EXT2
+  </sql>
+  <select id="selectByExample" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_res_interface_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_res_interface_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfoKey">
+    delete from t_res_interface_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfoExample">
+    delete from t_res_interface_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfo">
+    insert into t_res_interface_info (id, interface_code, service_id, 
+      interface_name, interface_url, interface_desc, 
+      http_port, http_method, headers, 
+      params, status, pxh, 
+      add_user, add_time, update_user, 
+      update_time, deleted, EXT1, 
+      EXT2)
+    values (#{id,jdbcType=INTEGER}, #{interfaceCode,jdbcType=VARCHAR}, #{serviceId,jdbcType=INTEGER}, 
+      #{interfaceName,jdbcType=VARCHAR}, #{interfaceUrl,jdbcType=VARCHAR}, #{interfaceDesc,jdbcType=VARCHAR}, 
+      #{httpPort,jdbcType=VARCHAR}, #{httpMethod,jdbcType=VARCHAR}, #{headers,jdbcType=VARCHAR}, 
+      #{params,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{pxh,jdbcType=INTEGER}, 
+      #{addUser,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfo">
+    insert into t_res_interface_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="interfaceCode != null">
+        interface_code,
+      </if>
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="interfaceName != null">
+        interface_name,
+      </if>
+      <if test="interfaceUrl != null">
+        interface_url,
+      </if>
+      <if test="interfaceDesc != null">
+        interface_desc,
+      </if>
+      <if test="httpPort != null">
+        http_port,
+      </if>
+      <if test="httpMethod != null">
+        http_method,
+      </if>
+      <if test="headers != null">
+        headers,
+      </if>
+      <if test="params != null">
+        params,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="pxh != null">
+        pxh,
+      </if>
+      <if test="addUser != null">
+        add_user,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="ext1 != null">
+        EXT1,
+      </if>
+      <if test="ext2 != null">
+        EXT2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceCode != null">
+        #{interfaceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceName != null">
+        #{interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceUrl != null">
+        #{interfaceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceDesc != null">
+        #{interfaceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="httpPort != null">
+        #{httpPort,jdbcType=VARCHAR},
+      </if>
+      <if test="httpMethod != null">
+        #{httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="headers != null">
+        #{headers,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="pxh != null">
+        #{pxh,jdbcType=INTEGER},
+      </if>
+      <if test="addUser != null">
+        #{addUser,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null">
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfoExample" resultType="java.lang.Integer">
+    select count(*) from t_res_interface_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_res_interface_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.interfaceCode != null">
+        interface_code = #{record.interfaceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.interfaceName != null">
+        interface_name = #{record.interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.interfaceUrl != null">
+        interface_url = #{record.interfaceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.interfaceDesc != null">
+        interface_desc = #{record.interfaceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpPort != null">
+        http_port = #{record.httpPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpMethod != null">
+        http_method = #{record.httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headers != null">
+        headers = #{record.headers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.params != null">
+        params = #{record.params,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pxh != null">
+        pxh = #{record.pxh,jdbcType=INTEGER},
+      </if>
+      <if test="record.addUser != null">
+        add_user = #{record.addUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext1 != null">
+        EXT1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null">
+        EXT2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_res_interface_info
+    set id = #{record.id,jdbcType=INTEGER},
+      interface_code = #{record.interfaceCode,jdbcType=VARCHAR},
+      service_id = #{record.serviceId,jdbcType=INTEGER},
+      interface_name = #{record.interfaceName,jdbcType=VARCHAR},
+      interface_url = #{record.interfaceUrl,jdbcType=VARCHAR},
+      interface_desc = #{record.interfaceDesc,jdbcType=VARCHAR},
+      http_port = #{record.httpPort,jdbcType=VARCHAR},
+      http_method = #{record.httpMethod,jdbcType=VARCHAR},
+      headers = #{record.headers,jdbcType=VARCHAR},
+      params = #{record.params,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      pxh = #{record.pxh,jdbcType=INTEGER},
+      add_user = #{record.addUser,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=VARCHAR},
+      EXT1 = #{record.ext1,jdbcType=VARCHAR},
+      EXT2 = #{record.ext2,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfo">
+    update t_res_interface_info
+    <set>
+      <if test="interfaceCode != null">
+        interface_code = #{interfaceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null">
+        service_id = #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceName != null">
+        interface_name = #{interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceUrl != null">
+        interface_url = #{interfaceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceDesc != null">
+        interface_desc = #{interfaceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="httpPort != null">
+        http_port = #{httpPort,jdbcType=VARCHAR},
+      </if>
+      <if test="httpMethod != null">
+        http_method = #{httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="headers != null">
+        headers = #{headers,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="pxh != null">
+        pxh = #{pxh,jdbcType=INTEGER},
+      </if>
+      <if test="addUser != null">
+        add_user = #{addUser,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null">
+        EXT1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        EXT2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfo">
+    update t_res_interface_info
+    set interface_code = #{interfaceCode,jdbcType=VARCHAR},
+      service_id = #{serviceId,jdbcType=INTEGER},
+      interface_name = #{interfaceName,jdbcType=VARCHAR},
+      interface_url = #{interfaceUrl,jdbcType=VARCHAR},
+      interface_desc = #{interfaceDesc,jdbcType=VARCHAR},
+      http_port = #{httpPort,jdbcType=VARCHAR},
+      http_method = #{httpMethod,jdbcType=VARCHAR},
+      headers = #{headers,jdbcType=VARCHAR},
+      params = #{params,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      pxh = #{pxh,jdbcType=INTEGER},
+      add_user = #{addUser,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      EXT1 = #{ext1,jdbcType=VARCHAR},
+      EXT2 = #{ext2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.edusoft.sysmanage.model.ResInterfaceInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_res_interface_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
+
+
+  <!-- edit auto xml -->
+  <sql id="Base_Column_List_vo">
+    a.id, a.interface_code, a.service_id, a.interface_name, a.interface_url, a.status, a.headers, a.params,
+    a.interface_desc, a.http_port, a.http_method,
+    a.pxh, a.add_user, a.add_time, a.update_user, a.update_time, a.deleted, a.EXT1, a.EXT2
+  </sql>
+
+  <resultMap extends="BaseResultMap" id="BaseVoResultMap" type="com.edusoft.sysmanage.vo.ResInterfaceInfoVo">
+    <result column="spName" jdbcType="VARCHAR" property="spName" />
+    <result column="serviceName" jdbcType="VARCHAR" property="serviceName" />
+  </resultMap>
+
+  <select id="selectVoByExample" parameterType="java.util.Map" resultMap="BaseVoResultMap">
+    select distinct
+    <include refid="Base_Column_List_vo" />
+    ,b.res_name as serviceName
+    ,(select name from t_res_sp_info c where c.id = b.sp_id) as spName
+    from t_res_interface_info a,t_res_service_info b where a.service_id = b.id and a.deleted=0
+      <if test="status != null and status!='' ">
+        and a.status = #{status}
+      </if>
+      <if test="serviceId != null and serviceId!=0 ">
+        and a.service_id = #{serviceId}
+      </if>
+      <if test="resType != null and resType!='' ">
+        and b.res_type = #{resType}
+      </if>
+      <if test="resName != null and resName!='' ">
+        and b.res_name  like CONCAT('%', #{resName}, '%')
+      </if>
+      <if test="spName != null and spName!='' ">
+        and b.sp_id in(select id from  t_res_sp_info  where name like CONCAT('%', #{spName}, '%') )
+      </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectVoByPrimaryKey" parameterType="com.edusoft.sysmanage.model.ResServiceInfoKey" resultMap="BaseVoResultMap">
+    select
+    <include refid="Base_Column_List_vo" />,
+    b.res_name as serviceName, (select name from t_res_sp_info c where c.id = b.sp_id) as spName
+    from t_res_interface_info a,t_res_service_info b where a.service_id = b.id
+    and a.id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>
