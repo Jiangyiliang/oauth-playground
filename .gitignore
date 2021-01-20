@@ -1,0 +1,13 @@
+/.idea
+
+# oauth-client
+oauth-client/target/
+oauth-client/src/main/test/
+
+# oauth-server
+oauth-server/target/
+oauth-server/src/main/test/
+
+# oauth-resource
+oauth-resource/target/
+oauth-resource/src/main/test/
